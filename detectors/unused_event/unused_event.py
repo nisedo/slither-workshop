@@ -25,10 +25,29 @@ class UnusedEvent(AbstractDetector):
     WIKI_RECOMMENDATION = ".."
 
     def _detect(self) -> List[Output]:
+        # Initialize an empty list to store the results of the detection
         results: List[Output] = []
 
-        # implement logic
+        # Iterate over each contract derived in the compilation unit
         for contract in self.compilation_unit.contracts_derived:
-            pass
-
+            # Iterate over each event defined in the contract
+            for event in contract.events:
+                # Iterate over each function called in the contract
+                for function in contract.all_functions_called:
+                    # Iterate over each node in the function's control flow
+                    for node in function.nodes:
+                        # Iterate over each intermediate representation (IR) in the node
+                        for ir in node.irs:
+                            # Check if the IR does not correspond to the event
+                            if str(ir).split('(')[0].replace("Emit ", "") != str(event):
+                                # Prepare the information about the unused event to be reported
+                                info: DETECTOR_INFO = [
+                                    "contract ", contract.name, 
+                                    " contains an unused event: ", event, "\n"
+                                ]
+                                # Append the result to the results list using the generated information
+                                results.append(self.generate_result(info))
+        # Return the list of results collected during the detection process
         return results
+
+# slither evaluation/unused_event/example.sol --detect unused-event --solc-disable-warnings
