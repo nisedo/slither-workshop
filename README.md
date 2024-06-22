@@ -13,11 +13,11 @@ For each detector:
 - Create more test cases, and try your detector on various codebases
 - Highlight any edge-case that is properly detected by your detector in its documentation
 
-| ID  | Name                 | What it detects                             | Examples                                                |
-|-----|----------------------|---------------------------------------------|---------------------------------------------------------|
-| 0   | [unused-event](./detectors/unused_event/unused_event.py)         | Events that are not used                    | [example.sol](./evaluation/unused_event/example.sol)     |
-| 1   | [isContract](./detectors/iscontract/iscontract.py)           | Incorrect isContract function/modifier      | [example.sol](./evaluation/iscontract/example.sol)       |
-| 2   | [divide-by-total-supply](./detectors/divide_by_total_supply/divide_by_total_supply.py) | Division by the total supply                | [example.sol](./evaluation/divide_by_total_supply/example.sol) |
+| ID  | Name                 | What it detects                             | Examples                                                | Completed                                                |
+|-----|----------------------|---------------------------------------------|---------------------------------------------------------|:-----------------------------------------------------:|
+| 0   | [unused-event](./detectors/unused_event/unused_event.py)         | Events that are not used                    | [example.sol](./evaluation/unused_event/example.sol)     | ✅
+| 1   | [isContract](./detectors/iscontract/iscontract.py)           | Incorrect isContract function/modifier      | [example.sol](./evaluation/iscontract/example.sol)       | ✅
+| 2   | [divide-by-total-supply](./detectors/divide_by_total_supply/divide_by_total_supply.py) | Division by the total supply                | [example.sol](./evaluation/divide_by_total_supply/example.sol) | ✅
 | 3   | [storage-read](./detectors/storage_read_elimiation/storage_read.py)         | Unnecessary storage read                    | [example.sol](./evaluation/storage_read_eliminination/example.sol) |
 | 4   | [mul-reduction](./detectors/mul_reduction/mul_reduction.py)        | Mul can be replaced by add                  | [example.sol](./evaluation/mul_reduction/example.sol)    |
 | 5   | [copy-propagation](./detectors/copy_propagation/copy_propagation.py)     | Costly operations can be replaced           | [example.sol](./evaluation/copy_propagation/example.sol) |
