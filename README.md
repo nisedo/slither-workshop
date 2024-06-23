@@ -1,4 +1,4 @@
-# nisedo's Trail of Bits Slither Workshop Submission 
+# nisedo's Trail of Bits Slither Secureum Workshop Submission 
 ## [Detectors](https://github.com/nisedo/slither-workshop/tree/main/detectors)
 
 I managed to complete the first three detectors.
