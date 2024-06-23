@@ -1,3 +1,42 @@
+# nisedo's Trail of Bits Slither Workshop Submission 
+## [Detectors](https://github.com/nisedo/slither-workshop/tree/main/detectors)
+
+I managed to complete the first three detectors.
+I attempted the 'mul-reduction' but without satisfactory results, and due to time constraints, I haven't tried the other three.
+
+I approached these detectors as I would CTF challenges, aiming to detect instances present in their corresponding `example.sol`. However, I'm aware that I did not consider other edge cases or follow best coding practices.
+
+
+| ID  | Name                 | What it detects                             | Examples                                                | Completed                                                |
+|-----|----------------------|---------------------------------------------|---------------------------------------------------------|:-----------------------------------------------------:|
+| 0   | [unused-event](./detectors/unused_event/unused_event.py)         | Events that are not used                    | [example.sol](./evaluation/unused_event/example.sol)     | [✅](https://github.com/nisedo/slither-workshop/blob/main/detectors/unused_event/unused_event.py)
+| 1   | [isContract](./detectors/iscontract/iscontract.py)           | Incorrect isContract function/modifier      | [example.sol](./evaluation/iscontract/example.sol)       | [✅](https://github.com/nisedo/slither-workshop/blob/main/detectors/iscontract/iscontract.py)
+| 2   | [divide-by-total-supply](./detectors/divide_by_total_supply/divide_by_total_supply.py) | Division by the total supply                | [example.sol](./evaluation/divide_by_total_supply/example.sol) | [✅](https://github.com/nisedo/slither-workshop/blob/main/detectors/divide_by_total_supply/divide_by_total_supply.py)
+| 4   | [mul-reduction](./detectors/mul_reduction/mul_reduction.py)        | Mul can be replaced by add                  | [example.sol](./evaluation/mul_reduction/example.sol)    | ❌
+
+## [EntryPoints Printer](https://github.com/nisedo/slither-workshop/blob/main/printers/entry_points.py)
+Rather than write my own detectors, because I didn't have any interesting ideas for new detectors, I wanted to write a printer that detects all the **entry points** of a codebase, because that's something I look for in each of my audits.
+
+My goal was to have a simple printer that shows all **public/external non-view/pure functions** (aka **public state-changing functions**). This allows quick identification of **user flows** within a codebase and their starting points (the entry points) during the initial phase of an audit.
+
+This is the current output I get: https://app.warp.dev/block/FRO4T8Dy4zG1SUrAEMHbrC
+
+**The printer outputs:**
+- Public and external functions, displaying any associated modifiers.
+- Functions are sorted by those without modifiers first, followed by those with modifiers.
+
+**The printer excludes:**
+- View and pure functions that do not change state.
+- Functions that are part of libraries or interfaces.
+- Constructors, as they do not serve as regular entry points.
+
+### Notes
+I've tested this tool on multiple codebases and it has consistently identified entry points without any false positives.
+
+Going forward, I plan to enhance the output format to align with modern design standards, similar to the tabular outputs seen in tools like [Foundry](https://book.getfoundry.sh/). This update will focus on improving readability and providing a more structured presentation of data, making it easier to interpret during audits.
+
+---
+
 # Slither secureum workshop
 
 The goals of this workshop are to:
@@ -13,11 +52,11 @@ For each detector:
 - Create more test cases, and try your detector on various codebases
 - Highlight any edge-case that is properly detected by your detector in its documentation
 
-| ID  | Name                 | What it detects                             | Examples                                                | Completed                                                |
-|-----|----------------------|---------------------------------------------|---------------------------------------------------------|:-----------------------------------------------------:|
-| 0   | [unused-event](./detectors/unused_event/unused_event.py)         | Events that are not used                    | [example.sol](./evaluation/unused_event/example.sol)     | ✅
-| 1   | [isContract](./detectors/iscontract/iscontract.py)           | Incorrect isContract function/modifier      | [example.sol](./evaluation/iscontract/example.sol)       | ✅
-| 2   | [divide-by-total-supply](./detectors/divide_by_total_supply/divide_by_total_supply.py) | Division by the total supply                | [example.sol](./evaluation/divide_by_total_supply/example.sol) | ✅
+| ID  | Name                 | What it detects                             | Examples                                                |
+|-----|----------------------|---------------------------------------------|---------------------------------------------------------|
+| 0   | [unused-event](./detectors/unused_event/unused_event.py)         | Events that are not used                    | [example.sol](./evaluation/unused_event/example.sol)     |
+| 1   | [isContract](./detectors/iscontract/iscontract.py)           | Incorrect isContract function/modifier      | [example.sol](./evaluation/iscontract/example.sol)       |
+| 2   | [divide-by-total-supply](./detectors/divide_by_total_supply/divide_by_total_supply.py) | Division by the total supply                | [example.sol](./evaluation/divide_by_total_supply/example.sol) |
 | 3   | [storage-read](./detectors/storage_read_elimiation/storage_read.py)         | Unnecessary storage read                    | [example.sol](./evaluation/storage_read_eliminination/example.sol) |
 | 4   | [mul-reduction](./detectors/mul_reduction/mul_reduction.py)        | Mul can be replaced by add                  | [example.sol](./evaluation/mul_reduction/example.sol)    |
 | 5   | [copy-propagation](./detectors/copy_propagation/copy_propagation.py)     | Costly operations can be replaced           | [example.sol](./evaluation/copy_propagation/example.sol) |
