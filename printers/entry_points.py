@@ -123,3 +123,5 @@ class EntryPoints(AbstractPrinter):
 
         # Return the final output
         return results
+
+# slither /Users/nisedo/Documents/audit/2024-06-size/ --print entry-points
